@@ -176,7 +176,7 @@ FTC_STATUS FT2232c::FTC_IsDeviceFT2232CType(FT_DEVICE_LIST_INFO_NODE devInfo, LP
   if (devInfo.Type == FT_DEVICE_2232C)
   {
     // Search for the last occurrence of the channel string ie ' A'. The Description field contains the device name
-    if ((pszStringSearch = strstr(strupr(devInfo.Description), DEVICE_CHANNEL_A)) != NULL)
+    if ((pszStringSearch = strstr(strupr((char*)devInfo.Description), DEVICE_CHANNEL_A)) != NULL)
     {
       // Ensure the last two characters of the device name is ' A' ie channel A
       if (strlen(pszStringSearch) == 2)
@@ -384,7 +384,7 @@ FTC_STATUS FT2232c::FTC_OpenSpecifiedDevice(LPSTR lpDeviceName, DWORD dwLocation
 
           if (Status == FTC_SUCCESS)
           {
-            *pftHandle = (DWORD)reinterpret_cast<intptr_t>(ftHandle);
+            *pftHandle = (uintptr_t)ftHandle;
 
             FTC_InsertDeviceHandle(lpDeviceName, dwLocationID, *pftHandle);
           }
@@ -502,7 +502,7 @@ FTC_STATUS FT2232c::FTC_IsDeviceHandleValid(FTC_HANDLE ftHandle)
   INT iDeviceCntr = 0;
   BOOLEAN bDevicempHandleFound = false;
 
-  if ((uiNumOpenedDevices > 0) && (ftHandle > 0))
+  if ((uiNumOpenedDevices > 0) && (ftHandle != 0))
   {
     dwProcessId = GetCurrentProcessId();
 
