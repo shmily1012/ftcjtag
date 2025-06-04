@@ -28,6 +28,20 @@ The build produces `libftcjtag.so` and `libftcjtag.a` in the `build` directory.
 Link your applications against these libraries **and** against FTDI's D2XX
 library.
 
+### Example: compiling the FT2232c library
+
+The following commands illustrate a typical build of the FT2232c code on a
+64‑bit Linux host:
+
+```bash
+mkdir build && cd build
+cmake .. -DFTD2XX_INCLUDE_DIR=..
+cmake --build .
+```
+
+This example mirrors the steps used to validate the repository and produces the
+same `libftcjtag.so` and `libftcjtag.a` artifacts.
+
 To install the libraries system wide you can run:
 
 ```bash
