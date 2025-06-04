@@ -1525,7 +1525,7 @@ void FT2232hMpsseJtag::DeleteDeviceCommandsSequenceDataBuffers(FTC_HANDLE ftHand
     {
       bDeviceHandleFound = true;
 
-      OpenedDevicesCommandsSequenceData[dwDeviceIndex].hDevice = 0;
+    OpenedDevicesCommandsSequenceData[dwDeviceIndex].hDevice = 0;
       OpenedDevicesCommandsSequenceData[dwDeviceIndex].dwNumBytesToSend = 0;
       pCmdsSequenceDataOutPutBuffer = OpenedDevicesCommandsSequenceData[dwDeviceIndex].pCommandsSequenceDataOutPutBuffer;
       delete [] pCmdsSequenceDataOutPutBuffer;

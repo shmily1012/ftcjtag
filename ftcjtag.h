@@ -34,6 +34,7 @@ Revision History:
 #else
    #include "WinTypes.h"
 #endif
+#include <stdint.h>
 
 // The following ifdef block is the standard way of creating macros
 // which make exporting from a DLL simpler.  All files within this DLL
@@ -53,7 +54,7 @@ Revision History:
    #define FTCJTAG_API __attribute__((visibility ("default")))
 #endif
 
-typedef DWORD FTC_HANDLE;
+typedef uintptr_t FTC_HANDLE;
 typedef ULONG FTC_STATUS;
 
 // Hi-speed device types

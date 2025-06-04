@@ -173,8 +173,8 @@ FTC_STATUS FT2232h::FTC_IsDeviceHiSpeedType(FT_DEVICE_LIST_INFO_NODE devInfo, LP
   if ((devInfo.Type == FT_DEVICE_2232H) || (devInfo.Type == FT_DEVICE_4232H))
   {
     // Search for the first occurrence of the channel string ie ' A' or ' B'. The Description field contains the device name
-    if (((pszStringSearch = strstr(strupr(devInfo.Description), DEVICE_NAME_CHANNEL_A)) != NULL) ||
-        ((pszStringSearch = strstr(strupr(devInfo.Description), DEVICE_NAME_CHANNEL_B)) != NULL))
+    if (((pszStringSearch = strstr(strupr((char*)devInfo.Description), DEVICE_NAME_CHANNEL_A)) != NULL) ||
+        ((pszStringSearch = strstr(strupr((char*)devInfo.Description), DEVICE_NAME_CHANNEL_B)) != NULL))
     {
       // Ensure the last two characters of the device name is ' A' ie channel A or ' B' ie channel B
       if (strlen(pszStringSearch) == 2)
@@ -427,7 +427,7 @@ FTC_STATUS FT2232h::FTC_OpenSpecifiedHiSpeedDevice(LPSTR lpDeviceName, DWORD dwL
           {
             if ((Status = FT_OpenEx((PVOID)dwLocationID, FT_OPEN_BY_LOCATION, &ftHandle)) == FTC_SUCCESS)
             {
-              *pftHandle = (DWORD)reinterpret_cast<intptr_t>(ftHandle);
+              *pftHandle = (uintptr_t)ftHandle;
 
               FTC_InsertDeviceHandle(lpDeviceName, dwLocationID, lpChannel, dwDeviceType, *pftHandle);
             }
@@ -508,7 +508,7 @@ FTC_STATUS FT2232h::FTC_IsHiSpeedDeviceHandleValid(FTC_HANDLE ftHandle)
   INT iDeviceCntr = 0;
   bool bDevicempHandleFound = false;
 
-  if ((uiNumOpenedHiSpeedDevices > 0) && (ftHandle > 0))
+  if ((uiNumOpenedHiSpeedDevices > 0) && (ftHandle != 0))
   {
     dwProcessId = GetCurrentProcessId();
 
